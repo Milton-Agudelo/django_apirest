@@ -27,7 +27,7 @@ services:
 # Database section
 # These are the DB parameters for the Database
   db:
-    image: postgres:16.2-alpine3.19
+    image: postgres:16.2-alpine3.20
     volumes:
       - dev-db-data:/var/lib/postgresql/data
     environment:
