@@ -2,7 +2,7 @@
  
 services:
   app:
-#api rest section
+# API rest section
     build:
       context: .
       args:
@@ -12,4 +12,28 @@ services:
     volumes:
       - ./app:/app
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    # These are the DB parameters for the application
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=devpass
+    depends_on:
+      - db
+
+# Database section
+# These are the DB parameters for the Database
+  db:
+    image: postgres:16.2-alpine3.19
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=devpass
+
+volumes:
+  dev-db-data:
