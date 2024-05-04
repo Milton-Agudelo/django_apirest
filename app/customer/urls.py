@@ -12,5 +12,5 @@ urlpatterns = [
          views.CustomerViewSet.as_view({'get': 'retrieve', 'delete': 'destroy', 'put': 'update'}),
          name='customer-handle'),
     path('',
-         views.CustomerViewSet.as_view({'get': 'list', 'post': 'create'}))
+         views.CustomerViewSet.as_view({'get': 'list', 'post': 'create'}), name='customer-list')
 ]
